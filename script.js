@@ -23,7 +23,6 @@ let computerScore = 0;
 let humanScore = 0;
 
 function playRound(computerChoice, humanChoice){
-
     if(humanChoice === computerChoice){
         console.log("It's a tie this round");
         return;
@@ -61,9 +60,8 @@ function playGame(){
         console.log(`Player chose "${choiceEquivalent(humanChoice)}" and Computer chose "${choiceEquivalent(computerChoice)}"`);
 
         playRound(computerChoice, humanChoice);
-
-        
     }
+    
     if(humanScore - computerScore > 0)
         console.log("Player Wins The Game!");
     else if(humanScore === computerScore)
