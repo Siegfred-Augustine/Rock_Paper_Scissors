@@ -98,15 +98,48 @@ function playGame(){
         computerPanel.append(computerChoiceElement);
         
         playRound(computerChoice, humanChoice);
-
-        
+        counter++;
     }
-    if(humanScore - computerScore > 0)
-        console.log("Player Wins The Game!");
-    else if(humanScore === computerScore)
-        console.log("It's a Tie!");
-    else
-        console.log("Computer wins :(");
+    if (counter === 5) {
+        if (humanScore > computerScore) {
+            winner.innerText = "Player wins the game!";
+        } else if (humanScore === computerScore) {
+            winner.innerText = "The game is Tied!";
+        } else {
+            winner.innerText = "Computer wins the game!";
+        }
+
+        // ✅ Properly append the new game button
+        const newBtn = document.createElement("button");
+        newBtn.innerText = "New Game";
+        newBtn.classList.add("mainButtons");
+        newBtn.style.fontSize ="30px";
+        newBtn.onclick = function () {
+            div.replaceChild(playBtn, newBtn);
+            counter = 0;
+            choice = "";
+            humanScore = 0;
+            computerScore = 0;
+            winner.innerText = "";
+            computerPanel.removeChild(computerPanel.lastElementChild);
+        };
+        div.replaceChild(newBtn, playBtn);
+    }
 }
 
-playGame();
+function getInput(input){
+    choice = input;
+}
+function playInput(){
+    if(playGame() === -1)
+        return;
+    div.replaceChild(replayBtn, mainButton);
+}
+function nextRound(){
+    choice = "";
+    if(counter>=5)
+        counter = 0;
+    div.replaceChild(playBtn, replayBtn);
+    computerPanel.removeChild(computerPanel.lastElementChild);
+    winner.innerText = "";
+}
