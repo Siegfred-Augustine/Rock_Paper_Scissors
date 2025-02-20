@@ -54,7 +54,6 @@ let computerScore = 0;
 let humanScore = 0;
 
 function playRound(computerChoice, humanChoice){
-
     if(humanChoice === computerChoice){
         winner.innerText = "It's a tie!!";
         return;
@@ -99,43 +98,15 @@ function playGame(){
         computerPanel.append(computerChoiceElement);
         
         playRound(computerChoice, humanChoice);
-        counter++;
-    }   
-    if(counter === 5){
-        if(humanScore - computerScore > 0)
-            winner.innerText = "Player wins the game!";
-        else if(humanScore === computerScore)
-            winner.innerText = "The game is Tied!";
-        else
-            winner.innerText = "Computer wins the game!";
-        const newBtn = document.createElement("button");
-        newBtn.innerText = "New Game";
-        newBtn.classList.add("mainButtons");
-        newBtn.onclick = function (){
-            div.replaceChild(playBtn, newBtn);
-            counter = 0;
-            choice = "";
-            winner.innerText = "";
-        };
-        div.replaceChild(newBtn, playBtn);
-        newBtn.style.fontSize = "30px";
+
+        
     }
+    if(humanScore - computerScore > 0)
+        console.log("Player Wins The Game!");
+    else if(humanScore === computerScore)
+        console.log("It's a Tie!");
+    else
+        console.log("Computer wins :(");
 }
-function getInput(input){
-    choice = input;
-}
-function playInput(){
-    if(playGame() === -1)
-        return;
-    div.replaceChild(replayBtn, mainButton);
-    mainButton = replayBtn;
-}
-function nextRound(){
-    choice = "";
-    if(counter>=5)
-        counter = 0;
-    div.replaceChild(playBtn, replayBtn);
-    mainButton = playBtn;
-    computerPanel.removeChild(computerPanel.lastElementChild);
-    winner.innerText = "";
-}
+
+playGame();
