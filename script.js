@@ -1,13 +1,44 @@
 console.log("Rock Paper Scissors game");
 
+let mainButton = document.createElement("button");
+const playBtn = document.createElement("button");
+playBtn.innerText = "Play";
+playBtn.classList.add("mainButtons");
+playBtn.onclick = ()=> playInput();
+mainButton = playBtn;
+
+const replayBtn = document.createElement("button");
+replayBtn.innerText = "Next round";
+replayBtn.classList.add("mainButtons");
+replayBtn.onclick = ()=> nextRound();
+replayBtn.style.fontSize = "30px";
+
+const div = document.getElementById("vsPanel");
+div.append(mainButton);
+
+const rockBtn = document.getElementById("rockBtn");
+rockBtn.onclick = ()=> getInput("rock");
+
+const paperBtn = document.getElementById("paperBtn");
+paperBtn.onclick = ()=> getInput("paper");
+
+const scissorsBtn = document.getElementById("scissorsBtn");
+scissorsBtn.onclick = ()=> getInput("scissors");
+
+const computerPanel = document.getElementById("computerSide");
+
+let winner = document.getElementById("winnerBox");
+
+let choice = "";
+
+let counter = 0;
+
 function getComputerChoice(){
     let choice = Math.round((Math.random() * 2));
     return choice;
 }
 
 function getHumanChoice (){
-    let choice = prompt("Enter 'Rock', 'Paper', or 'Scissors'").toLowerCase();
-
     switch(choice){
         case "rock":
             return 0;
@@ -25,7 +56,7 @@ let humanScore = 0;
 function playRound(computerChoice, humanChoice){
 
     if(humanChoice === computerChoice){
-        console.log("It's a tie this round");
+        winner.innerText = "It's a tie!!";
         return;
     }
     else if(computerChoice === 1 && humanChoice === 2 ||
@@ -33,13 +64,14 @@ function playRound(computerChoice, humanChoice){
             computerChoice === 2 && humanChoice === 0){
 
         humanScore++;
-        console.log("Player wins this round!!");
+        winner.innerText = "Player wins this round";
     }
     else{
         computerScore++;
-        console.log("Computer wins this round!")
+        winner.innerText = "Computer wins this round";
     }
 }
+
 function choiceEquivalent(choice){
     switch(choice){
         case 0: 
@@ -54,22 +86,56 @@ function choiceEquivalent(choice){
 }
 
 function playGame(){
-    for(let i = 0; i < 5; i++){
+    if(choice == ""){
+        alert("Please Pick");
+        return -1;
+    }
+    if(counter < 5){
         let humanChoice = getHumanChoice();
         let computerChoice = getComputerChoice();
 
-        console.log(`Player chose "${choiceEquivalent(humanChoice)}" and Computer chose "${choiceEquivalent(computerChoice)}"`);
-
-        playRound(computerChoice, humanChoice);
-
+        let computerChoiceElement = document.createElement("h3");
+        computerChoiceElement.innerText = `Computer chose ${choiceEquivalent(computerChoice)}`;
+        computerPanel.append(computerChoiceElement);
         
+        playRound(computerChoice, humanChoice);
+        counter++;
+    }   
+    if(counter === 5){
+        if(humanScore - computerScore > 0)
+            winner.innerText = "Player wins the game!";
+        else if(humanScore === computerScore)
+            winner.innerText = "The game is Tied!";
+        else
+            winner.innerText = "Computer wins the game!";
+        const newBtn = document.createElement("button");
+        newBtn.innerText = "New Game";
+        newBtn.classList.add("mainButtons");
+        newBtn.onclick = function (){
+            div.replaceChild(playBtn, newBtn);
+            counter = 0;
+            choice = "";
+            winner.innerText = "";
+        };
+        div.replaceChild(newBtn, playBtn);
+        newBtn.style.fontSize = "30px";
     }
-    if(humanScore - computerScore > 0)
-        console.log("Player Wins The Game!");
-    else if(humanScore === computerScore)
-        console.log("It's a Tie!");
-    else
-        console.log("Computer wins :(");
 }
-
-playGame();
+function getInput(input){
+    choice = input;
+}
+function playInput(){
+    if(playGame() === -1)
+        return;
+    div.replaceChild(replayBtn, mainButton);
+    mainButton = replayBtn;
+}
+function nextRound(){
+    choice = "";
+    if(counter>=5)
+        counter = 0;
+    div.replaceChild(playBtn, replayBtn);
+    mainButton = playBtn;
+    computerPanel.removeChild(computerPanel.lastElementChild);
+    winner.innerText = "";
+}

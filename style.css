@@ -1,0 +1,80 @@
+body {
+    background-color: #FFFDD0;
+}
+#playerSide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 40%;
+}
+.mainButtons{
+    border: none;
+    background: #E0773A;
+    color: white;
+    width: 170px;
+    height: 80px;
+    border-radius: 21px;
+    font-size: 48px;
+}
+.fontsGeneral{
+    font-size: 38px;
+}
+.mainButtons:hover{
+    background-color: white;
+    color: black;
+}
+
+#playerSide button{
+    border: none;         
+    background: none;  
+    border-radius: 10px;   
+    padding: 20px;          
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.3s ease;
+}
+#playerSide button img {
+    width: 80px; /* Increase image width */
+    height: 80px; /* Increase image height */
+}
+#playerSide button:hover img{
+    transform: scale(1.5);
+}
+#playerSide button:active img{
+    transform: scale(2.0);
+}
+.flex-container{
+    margin: 20px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#computerSide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40%;
+}
+#centerDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 90%;
+    height: 80%;
+}
+
+#vsPanel{
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+}
+
+#vs{
+    font-size: 128px;
+}
